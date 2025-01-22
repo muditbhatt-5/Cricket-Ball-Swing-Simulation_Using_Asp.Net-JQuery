@@ -1,0 +1,103 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Animation Examples</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            background-color: #3498db;
+            position: relative;
+        }
+
+        .circle {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            background-color: #e74c3c;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .text {
+            font-size: 18px;
+            color: #2c3e50;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Animation Using jQuery</h1>
+
+    <!-- Example Elements -->
+    <div class="box" id="box1">Box 1</div>
+    <div class="box circle" id="box2">Circle</div>
+    <p class="text" id="text1">Hello, this is animated text!</p>
+    <button id="startAnimations">Start Animations</button>
+
+    <script>
+        $(document).ready(function () {
+            $("#startAnimations").mouseleave(function (e) {
+                console.log(e.originalEvent.key);
+                // Animation 1: Zoom In and Out
+                $("#box1").animate({ width: "750px", height: "750px" }, 1000).animate({ width: "100px", height: "100px" }, 1000);
+
+                // Animation 2: Pulse Effect
+                for (let i = 0; i < 3; i++) {
+                    $("#box2").animate({ opacity: 0.7 }, 300).animate({ opacity: 1 }, 100);
+                }
+
+                // Animation 3: Skew Transform
+                $("#box1").css({ transform: "skew(0deg)" }).animate({ borderSpacing: 20 }, {
+                    step: function (now) {
+                        $(this).css('transform', 'skew(' + now + 'deg)');
+                    },
+                    duration: 1000
+                }).animate({ borderSpacing: 0 }, {
+                    step: function (now) {
+                        $(this).css('transform', 'skew(' + now + 'deg)');
+                    },
+                    duration: 1000
+                });
+
+                // Animation 4: Text Wave Effect
+                $("#text1").animate({ marginLeft: "20px" }, 500).animate({ marginLeft: "0px" }, 500).animate({ marginLeft: "-20px" }, 500).animate({ marginLeft: "0px" }, 500);
+
+                // Animation 5: Infinite Spin
+                let angle = 0;
+                setInterval(function () {
+                    angle += 200;
+                    $("#box2").css('transform', 'rotate(' + angle + 'deg)');
+                }, 100);
+
+                // Animation 6: Color Gradient Effect
+                let colors = ["#e74c3c", "#2ecc71", "#3498db", "#f1c40f"];
+                let i = 0;
+                setInterval(function () {
+                    $("#box1").css("background-color", colors[i]);
+                    i = (i + 1) % colors.length;
+                }, 500);
+
+                // Animation 7: Spiral Movement
+                $("#box2").animate({ marginLeft: "50px", marginTop: "50px" }, 1000)
+                        .animate({ marginLeft: "0px", marginTop: "100px" }, 1000)
+                        .animate({ marginLeft: "50px", marginTop: "50px" }, 1000)
+                        .animate({ marginLeft: "0px", marginTop: "0px" }, 1000);
+
+                // Animation 8: Expand Text Size
+                $("#text1").animate({ fontSize: "300px" }, 1000).animate({ fontSize: "18px" }, 1000);
+            });
+        });
+    </script>
+
+</body>
+</html>

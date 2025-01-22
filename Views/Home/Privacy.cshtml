@@ -1,0 +1,166 @@
+﻿@{
+    ViewData["Title"] = "Cricket Ball Swing Simulation";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Ball Swing Simulation</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #d9f2d9;
+            text-align: center;
+        }
+
+        .pitch {
+            width: 800px;
+            height: 300px;
+            background-color: rgb(0,150,0);
+            border: 5px solid #654321;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .ball {
+            width: 50px;
+            height: 50px;
+            background-color: deeppink;
+            border-radius: 50%;
+            position: absolute;
+            top: 200px;
+            left: 50px;
+        }
+
+        .batsman {
+            width: 60px;
+            height: 160px;
+            background-color: #3498db;
+            position: absolute;
+            top: 90px;
+            left: 590px;
+            border-radius: 30px;
+        }
+
+        .batsman-head {
+            width: 60px;
+            height: 60px;
+            background-color: #f1c40f;
+            border-radius: 50%;
+            position: absolute;
+            top: -60px;
+            left: 0;
+        }
+
+        .batsman-body {
+            width: 60px;
+            height: 100px;
+            background-color: #3498db;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .batsman-bat {
+            width: 10px;
+            height: 80px;
+            background-color: #8e44ad;
+            position: absolute;
+            top: 20px;
+            left: 60px;
+            transform: rotate(-30deg);
+        }
+
+        .stump {
+            width: 10px;
+            height: 100px;
+            background-color: sandybrown;
+            position: absolute;
+            top: 150px;
+        }
+
+        .stump-left {
+            left: 750px;
+        }
+
+        .stump-right {
+            left: 730px;
+        }
+
+        .stump-middle {
+            left: 770px;
+        }
+
+        .out {
+            background-color: red;
+            text-align: center;
+            line-height: 100px;
+            color: white;
+            font-weight: bold;
+            /* width: 60px;
+            height: 60px;
+            background-color: #f1c40f;
+            border-radius: 50%;
+            position: absolute;
+            top: -60px;
+            left: 0; */
+        }
+
+        .defend {
+            background-color: gold;
+            text-align: center;
+            line-height: 100px;
+            color: white;
+            font-weight: bold;
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Cricket Ball Swing Simulation</h1>
+
+    <div class="pitch">
+        <div class="ball" id="ball">Ball</div>
+        <div class="stump stump-left"></div>
+        <div class="stump stump-middle"></div>
+        <div class="stump stump-right"></div>
+        <div class="batsman" id="batsman">
+            <div class="batsman-head"></div>
+            <div class="batsman-body">Mohit</div>
+            <div class="batsman-bat"></div>
+        </div>
+    </div>
+    <button id="inswing">Inswing</button>
+    <button id="outswing">Outswing</button>
+
+    <script>
+        $(document).ready(function () {
+            $("#inswing").click(function () {
+                $("#ball").animate({ left: '+=670px', top: '+=30px' }, 1000, function () {
+                    // Simulate ball hitting the stumps
+                    $(".stump").animate({ height: '50px' }, 500).fadeOut(500);
+                    $("#batsman").removeClass('defend').addClass('out').text('OUT!');
+                    console.log("out That!!😐");
+                });
+            });
+
+            $("#outswing").click(function () {
+                $("#ball").animate({ left: '+=520px', top: '-=30px' }, 1000, function () {
+                    $("#batsman").removeClass('out').addClass('defend').text('Defended');
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
